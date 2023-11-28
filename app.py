@@ -5,7 +5,7 @@ import cv2
 import math as m
 import mediapipe as mp
 
-app = Flask(__name__)
+app = app = Flask(__name__, template_folder='templates')
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 def findDistance(x1, y1, x2, y2):
@@ -206,8 +206,7 @@ def index():
 
 @app.route("/video_feed")
 def video_feed():
-     return Response(generate(),
-          mimetype = "multipart/x-mixed-replace; boundary=frame")
+     return Response(generate(), mimetype = "multipart/x-mixed-replace; boundary=frame")
 
 if __name__ == "__main__":
      app.run(debug=False)
