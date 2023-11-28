@@ -1,48 +1,24 @@
-# Ref: https://learnopencv.com/building-a-body-posture-analysis-system-using-mediapipe/
-
+from flask import Flask, render_template, Response
 import cv2
 import time
 import math as m
 import mediapipe as mp
 import argparse
+from threading import Thread
+
+app = Flask(__name__)
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
 def findDistance(x1, y1, x2, y2):
-    """
-    Calculate the Euclidean distance between two points.
-
-    Args:
-        x1, y1: Coordinates of the first point.
-        x2, y2: Coordinates of the second point.
-
-    Returns:
-        Distance between the two points.
-    """
     dist = m.sqrt((x2 - x1)**2 + (y2 - y1)**2)
     return dist
 
 def findAngle(x1, y1, x2, y2):
-    """
-    Calculate the angle between two points with respect to the y-axis.
-
-    Args:
-        x1, y1: Coordinates of the first point.
-        x2, y2: Coordinates of the second point.
-
-    Returns:
-        Angle in degrees.
-    """
     theta = m.acos((y2 - y1) * (-y1) / (m.sqrt((x2 - x1)**2 + (y2 - y1)**2) * y1))
     degree = int(180/m.pi) * theta
     return degree
-
-def sendWarning(x):
-    """
-    Placeholder function for sending a warning.
-    """
-    pass
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Posture Monitor with MediaPipe')
@@ -53,7 +29,8 @@ def parse_arguments():
     parser.add_argument('--time-threshold', type=int, default=180, help='Time threshold for triggering a posture alert.')
     return parser.parse_args()
 
-def main(video_path=None, offset_threshold=100, neck_angle_threshold=25, torso_angle_threshold=10, time_threshold=180):
+def main(cap, offset_threshold=100, neck_angle_threshold=25, torso_angle_threshold=10, time_threshold=180):
+    
     # Initialize frame counters.
     good_frames = 0
     bad_frames = 0
@@ -215,9 +192,36 @@ def main(video_path=None, offset_threshold=100, neck_angle_threshold=25, torso_a
     cap.release()
     cv2.destroyAllWindows()
 
+def generate_frames():
+    while True:
+        success, frame = cap.read()
+        if not success:
+            break
+        else:
+            frame = process_frame(frame)
+            ret, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+def process_frame(frame):
+    # Resto del código de la función process_frame()
+    pass
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+def flask_run():
+    app.run(host='0.0.0.0', port=5000, debug=False)
+
 if __name__ == "__main__":
     args = parse_arguments()
-    
+
     print("Arguments:")
     print(f"Video: {args.video}")
     print(f"Offset Threshold: {args.offset_threshold}")
@@ -225,4 +229,9 @@ if __name__ == "__main__":
     print(f"Torso Angle Threshold: {args.torso_angle_threshold}")
     print(f"Time Threshold: {args.time_threshold}")
 
-    main(args.video)
+    cap = cv2.VideoCapture(args.video) if args.video else cv2.VideoCapture(0)
+
+    thread = Thread(target=flask_run)
+    thread.start()
+
+    main(cap, args.offset_threshold, args.neck_angle_threshold, args.torso_angle_threshold, args.time_threshold)
