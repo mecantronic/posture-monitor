@@ -1,12 +1,13 @@
-from flask import Flask
-from flask import render_template
-from flask import Response
+# Ref: https://learnopencv.com/building-a-body-posture-analysis-system-using-mediapipe/
+
 import cv2
+import time
 import math as m
 import mediapipe as mp
+import argparse
 
-app = Flask(__name__)
-cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+mp_drawing = mp.solutions.drawing_utils
+mp_pose = mp.solutions.pose
 
 def findDistance(x1, y1, x2, y2):
     """
@@ -43,7 +44,16 @@ def sendWarning(x):
     """
     pass
 
-def generate(video_path=None, offset_threshold=100, neck_angle_threshold=25, torso_angle_threshold=10, time_threshold=180):
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Posture Monitor with MediaPipe')
+    parser.add_argument('--video', type=str, default=0, help='Path to the input video file. If not provided, the webcam will be used.')
+    parser.add_argument('--offset-threshold', type=int, default=100, help='Threshold value for shoulder alignment.')
+    parser.add_argument('--neck-angle-threshold', type=int, default=25, help='Threshold value for neck inclination angle.')
+    parser.add_argument('--torso-angle-threshold', type=int, default=10, help='Threshold value for torso inclination angle.')
+    parser.add_argument('--time-threshold', type=int, default=180, help='Time threshold for triggering a posture alert.')
+    return parser.parse_args()
+
+def main(video_path=None, offset_threshold=100, neck_angle_threshold=25, torso_angle_threshold=10, time_threshold=180):
     # Initialize frame counters.
     good_frames = 0
     bad_frames = 0
@@ -194,21 +204,25 @@ def generate(video_path=None, offset_threshold=100, neck_angle_threshold=25, tor
         if bad_time > time_threshold:
             sendWarning()
 
-        (flag, encodedImage) = cv2.imencode(".jpg", image)
-        if not flag:
-            continue
-        yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
-                bytearray(encodedImage) + b'\r\n')
-        
-@app.route("/")
-def index():
-     return render_template("index.html")
+        # Flip the image horizontally for a selfie-view display.
+        cv2.imshow('MediaPipe Pose', image)
 
-@app.route("/video_feed")
-def video_feed():
-     return Response(generate(),
-          mimetype = "multipart/x-mixed-replace; boundary=frame")
+        # Exit the loop if the 'q' key is pressed.
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    # Release the camera and close the windows.
+    cap.release()
+    cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-     app.run(debug=False)
-cap.release()
+    args = parse_arguments()
+    
+    print("Arguments:")
+    print(f"Video: {args.video}")
+    print(f"Offset Threshold: {args.offset_threshold}")
+    print(f"Neck Angle Threshold: {args.neck_angle_threshold}")
+    print(f"Torso Angle Threshold: {args.torso_angle_threshold}")
+    print(f"Time Threshold: {args.time_threshold}")
+
+    main(args.video)
