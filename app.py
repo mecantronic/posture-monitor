@@ -44,7 +44,16 @@ def sendWarning(x):
     """
     pass
 
-def main(video_path=None):
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Posture Monitor with MediaPipe')
+    parser.add_argument('--video', type=str, default=0, help='Path to the input video file. If not provided, the webcam will be used.')
+    parser.add_argument('--offset-threshold', type=int, default=100, help='Threshold value for shoulder alignment.')
+    parser.add_argument('--neck-angle-threshold', type=int, default=25, help='Threshold value for neck inclination angle.')
+    parser.add_argument('--torso-angle-threshold', type=int, default=10, help='Threshold value for torso inclination angle.')
+    parser.add_argument('--time-threshold', type=int, default=180, help='Time threshold for triggering a posture alert.')
+    return parser.parse_args()
+
+def main(video_path=None, offset_threshold=100, neck_angle_threshold=25, torso_angle_threshold=10, time_threshold=180):
     # Initialize frame counters.
     good_frames = 0
     bad_frames = 0
@@ -67,7 +76,6 @@ def main(video_path=None):
     pose = mp_pose.Pose()
 
     # For file input, replace file name with <path>.
-    file_name = 'test.mp4'
     cap = cv2.VideoCapture(video_path) if video_path else cv2.VideoCapture(0)
 
     # Meta.
@@ -120,7 +128,7 @@ def main(video_path=None):
 
         # Assist to align the camera to point at the side view of the person.
         # Offset threshold 30 is based on results obtained from analysis over 100 samples.
-        if offset < 100:
+        if offset < offset_threshold:
             cv2.putText(image, str(int(offset)) + ' Shoulders aligned', (w - 280, 30), font, 0.6, green, 2)
         else:
             cv2.putText(image, str(int(offset)) + ' Shoulders not aligned', (w - 280, 30), font, 0.6, red, 2)
@@ -150,7 +158,7 @@ def main(video_path=None):
 
         # Determine whether good posture or bad posture.
         # The threshold angles have been set based on intuition.
-        if neck_inclination < 25 and torso_inclination < 10:
+        if neck_inclination < neck_angle_threshold and torso_inclination < torso_angle_threshold:
             bad_frames = 0
             good_frames += 1
 
@@ -193,7 +201,7 @@ def main(video_path=None):
             cv2.putText(image, time_string_bad, (10, h - 20), font, 0.9, red, 2)
 
         # If you stay in bad posture for more than 3 minutes (180s) send an alert.
-        if bad_time > 180:
+        if bad_time > time_threshold:
             sendWarning()
 
         # Flip the image horizontally for a selfie-view display.
@@ -208,8 +216,13 @@ def main(video_path=None):
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Posture Monitor with MediaPipe')
-    parser.add_argument('--video', type=str, help='Path to the video file for analysis')
-    args = parser.parse_args()
+    args = parse_arguments()
+    
+    print("Arguments:")
+    print(f"Video: {args.video}")
+    print(f"Offset Threshold: {args.offset_threshold}")
+    print(f"Neck Angle Threshold: {args.neck_angle_threshold}")
+    print(f"Torso Angle Threshold: {args.torso_angle_threshold}")
+    print(f"Time Threshold: {args.time_threshold}")
 
     main(args.video)
