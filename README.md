@@ -45,7 +45,7 @@ pip install -r requirements.txt
 
 5. Run the posture monitoring script:
 ``` bash
-python posture_monitor.py --video path/to/your/video.mp4 --offset-threshold 100 --neck-angle-threshold 25 --torso-angle-threshold 10 --time-threshold 180
+python app.py --video path/to/your/video.mp4 --offset-threshold 100 --neck-angle-threshold 25 --torso-angle-threshold 10 --time-threshold 180
 ```
 * Optionally, you can omit --video to use the default webcam.
 
