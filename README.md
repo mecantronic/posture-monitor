@@ -13,6 +13,7 @@ This code was created with the help of the article [**Building a Poor Body Postu
 * OpenCV (`pip install opencv-python`)
 * NumPy (`pip install numpy`)
 * Mediapipe (`pip install mediapipe`)
+* Flask (`pip install flask`)
 
 ## Usage
 1. Clone the repository to your local machine:
@@ -43,13 +44,12 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-5. Run the posture monitoring script:
+5. Run the web application with the following command:
 ``` bash
-python app.py --video 'path/to/your/video.mp4' --offset-threshold 100 --neck-angle-threshold 25 --torso-angle-threshold 10 --time-threshold 180
+python video_streaming_web.py
 ```
-* Optionally, you can omit --video to use the default webcam.
 
-6. Adjust your webcam to capture your posture, and the application will display real-time feedback on your posture status, inclination angles, and time spent in each posture. 📹👀
+6. Open your browser and visit [http://127.0.0.1:5000/](http://127.0.0.1:5000/) to view the webcam or video file with pose overlay and adjust your webcam to capture your posture, and the application will display real-time feedback on your posture status, inclination angles, and time spent in each posture. 📹👀
 
 ## Features
 * Real-time posture monitoring using the webcam. 🔄
@@ -57,14 +57,6 @@ python app.py --video 'path/to/your/video.mp4' --offset-threshold 100 --neck-ang
 * Dynamic feedback on posture status (good or bad). 👍👎
 * Calculation of time spent in each posture. 🕒
 * Alert mechanism if bad posture is maintained for an extended period. ⚠️
-
-## Configuration
-You can adjust the following parameters in the posture_monitor.py script:
-
-* **Video** (`--video`): Path of video file.
-* **Offset Threshold** (`--offset-threshold`): Threshold value for shoulder alignment. 📏
-* **Angle Thresholds** (`--neck-angle-threshold`, `--torso-angle-threshold`): Threshold values for neck and torso inclination angles. 📐
-* **Time Threshold** (`--time-threshold`): Time threshold for triggering a posture alert. 🕒
 
 ## Acknowledgments
 This project utilizes the [MediaPipe](https://mediapipe.dev/) library for pose estimation. 👏
