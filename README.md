@@ -17,7 +17,7 @@ This code was created with the help of the article [**Building a Poor Body Postu
 ## Usage
 1. Clone the repository to your local machine:
 ``` bash
-git clone https://github.com/your-username/posture-monitor.git
+git clone https://github.com/mecantronic/posture-monitor
 ```
 
 2. Navigate to the project directory:
