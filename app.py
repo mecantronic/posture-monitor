@@ -38,11 +38,11 @@ def generate_frames(video_path=0):
     cap.release()
     out.release()
      
-@app.route("/")
+@app.route("/video_input.html")
 def index():
      return render_template("video_input.html")
 
-@app.route("/login")
+@app.route("/")
 def login():
      return render_template("login.html")
 

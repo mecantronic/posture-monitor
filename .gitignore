@@ -10,7 +10,8 @@ venv.bak/
 env/
 
 # Uploads folder
-uploads/
+uploads/*
+!uploads/Test_2.mp4
 
 # File video_output
 video_output.mp4
