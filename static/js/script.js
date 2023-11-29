@@ -25,8 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
-    // Aquí puedes agregar más código JavaScript según tus necesidades.
-});
+
 
 function openFileDialog() {
     // Trigger the file input dialog
