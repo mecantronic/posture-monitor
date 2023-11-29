@@ -42,6 +42,18 @@ def generate_frames(video_path=0):
 def index():
      return render_template("video_input.html")
 
+@app.route("/login")
+def login():
+     return render_template("login.html")
+
+@app.route("/term")
+def term_conditions():
+     return render_template("term_conditions.html")
+
+@app.route("/activity")
+def select_activity():
+     return render_template("select_activity.html")
+
 @app.route('/video_feed', methods=['POST'])
 def video_feed():
 

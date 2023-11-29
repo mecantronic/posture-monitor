@@ -1,0 +1,68 @@
+* {
+    margin: 0;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/DMSerifDisplay-Italic.ttf);
+    
+  }
+
+  @font-face {
+    font-family: paragraphFont;
+    src: url(../fonts/Bitter-Regular.ttf);
+  }
+
+  @font-face {
+    font-family: buttonFont;
+    src: url(../fonts/Bitter-Bold.ttf);
+  }
+
+.container {
+    background-color: #FFEBE5;
+    display: flex;
+    justify-content: center;
+    background-image: url(../assets/Formas-09.png),
+    url(../assets/Formas-22.png),
+    url(../assets/Formas-30.png),
+    url(../assets/Formas-43.png);
+    background-position: 120% -10%,-60% 300%,160% 100%,-60% -60%;
+    background-repeat: no-repeat,no-repeat,no-repeat,no-repeat;
+    background-size: 500px,696px,650px,646px;
+    background-attachment: fixed,fixed,fixed,fixed;
+ }
+
+.main-container {
+    align-self: center;
+    width: 450px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.term-conditions-button {
+    border-radius: 35px;
+    padding: 15px;
+    width: 200px;
+    background-color: #5FE0C1;
+    border: 0;
+    margin-top: 30px;
+    font-family: buttonFont;
+}
+
+.term-conditions-button:hover {
+    padding: 14px;
+    width: 195px;
+} 
+
+h1 {
+    margin-bottom: 40px;
+    font-family: myFirstFont;
+}
+
+p {
+    font-family: paragraphFont;
+}
+
+.logo-icon {
+    margin-bottom: 50px;
+}

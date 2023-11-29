@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <title>Videostreaming</title>
+
+</head>
+
+<body class="container">
+    <nav>
+
+    </nav>
+    <main class="main-container">
+        <section>
+            <img src="../static/assets/Logo Caviar Black (1).png" width="185px" height="95px">
+            <div class="img-characters">
+                <img src="../static/assets/Mascots-19.png" width="110px" height="120px">
+                <img src="../static/assets/Mascots-01.png" width="100px" height="120px">
+                <img src="../static/assets/Mascots-10.png" width="100px" height="120px">
+            </div>
+        </section>
+        <section class="login-section">
+            <h1 class="text">Login</h1>
+            <div>
+                <input type="text" name="username" id="username" placeholder="Username or email" class="login-input">
+            </div>
+            <div>
+                <input type="password" name="password" id="password" placeholder="Password" class="login-input">
+            </div>
+            <form method="get" action="/term">
+                <button class="login-button text">Log In</button>
+            </form>
+        </section>
+    </main>
+    <script defer src="../static/js/script.js"></script>
+</body>
+
+</html>
