@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/DMSerifDisplay-Italic.ttf);
+    
+}
+
+@font-face {
+    font-family: paragraphFont;
+    src: url(../fonts/Bitter-BoldItalic.ttf);
+}
+
+@font-face {
+    font-family: buttonFont;
+    src: url(../fonts/Bitter-Bold.ttf);
+}
+
+nav {
+    background-color: #CC98F4;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.container {
+    background-color: #FFFFFF;
+ }
+
+.main-container {
+    text-align: center;
+    align-self: center;
+}
+
+.activity-container {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+.button-select-activity {
+    border-radius: 35px;
+    padding: 15px;
+    width: 200px;
+    background-color: #FFB81A;
+    border: 0;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    font-family: buttonFont;
+}
+
+.button-select-activity:hover {
+    padding: 14px;
+    width: 195px;
+} 
+
+.bg-activity-image {
+    opacity: 0.5;
+    margin-bottom: 10px;
+}
+
+.section-activity {
+    position: relative;
+    text-align: center;
+}
+
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    text-transform: uppercase;
+    color: black;
+    z-index: 1;
+    font-family: paragraphFont;
+}
+
+.main-title {
+    background-color: #5FE0C1;
+    margin-bottom: 50px;
+    padding: 10px;
+}
+
+.main-title h1 {
+    font-family: myFirstFont;
+}
+
+footer {
+    background-color: #CC98F4;
+    padding: 30px;
+}
+
+.username {
+    font-family: paragraphFont;
+}

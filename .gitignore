@@ -9,6 +9,12 @@ venv/
 venv.bak/
 env/
 
+# Uploads folder
+uploads/
+
+# File video_output
+video_output.mp4
+
 # IDE files
 .idea/
 .vscode/
