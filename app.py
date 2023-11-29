@@ -13,16 +13,22 @@ def generate_frames(video_path=0):
 
     # For file input, replace file name with <path>.
     cap = cv2.VideoCapture(video_path) if video_path else cv2.VideoCapture(0)
+    fps = cap.get(cv2.CAP_PROP_FPS) # Get fps.
+    width = int(cap.get(3))
+    height = int(cap.get(4))
+
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter('video_output.mp4', fourcc, fps, (width, height))
 
     while cap.isOpened():
         success, frame = cap.read()
         if not success:
             break
 
-        # MediaPipe process
-        fps = cap.get(cv2.CAP_PROP_FPS) # Get fps.
+        # Posture analyzer process (MediaPipe)
         result = process_frame(frame, fps)
-        
+        out.write(result)
+
         ret, buffer = cv2.imencode('.jpg', result)
         frame = buffer.tobytes()
 
@@ -30,6 +36,7 @@ def generate_frames(video_path=0):
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
     cap.release()
+    out.release()
      
 @app.route("/")
 def index():
