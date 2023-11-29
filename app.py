@@ -204,6 +204,18 @@ def generate(video_path=None, offset_threshold=100, neck_angle_threshold=25, tor
 def index():
      return render_template("index.html")
 
+@app.route("/login")
+def login():
+     return render_template("login.html")
+
+@app.route("/term")
+def term_conditions():
+     return render_template("term_conditions.html")
+
+@app.route("/activity")
+def select_activity():
+     return render_template("select_activity.html")
+
 @app.route("/video_feed")
 def video_feed():
      return Response(generate(), mimetype = "multipart/x-mixed-replace; boundary=frame")

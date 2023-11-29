@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/DMSerifDisplay-Italic.ttf);
+}
+  
+@font-face {
+    font-family: paragraphFont;
+    src: url(../fonts/Bitter-BoldItalic.ttf);
+}
+
+@font-face {
+    font-family: buttonFont;
+    src: url(../fonts/Bitter-Bold.ttf);
+}
+
+.container {
+    text-align: center;
+    background-color: #FFEBE5;
+ }
+
+.login-button {
+    border-radius: 35px;
+    padding: 15px;
+    width: 200px;
+    background-color: #CC98F4;
+    border: 0;
+    margin-top: 30px;
+    font-family: buttonFont;
+}
+
+.login-button:hover {
+    padding: 14px;
+    width: 195px;
+}
+
+.login-input {
+    width: 300px;
+    height: 25px;
+    border-radius: 10px;
+    background-color: #F2E0F3;
+    border: 0;
+    margin-top: 15px;
+    padding: 10px;
+    font-family: paragraphFont;
+}
+
+.input {
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.text {
+    color: #1D1D1B;
+}
+
+.main-container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-around;
+}
+
+h1 {
+    font-family: myFirstFont;
+}
+
+.img-characters {
+    margin-top: 20px;
+}
+
+.login-section {
+    background-color: aliceblue;
+    padding: 50px 15px;
+}
