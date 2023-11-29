@@ -1,48 +1,167 @@
-.container{
+* {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: #FFEBE5;
-    color: #1D1D1B;
-    text-align: center;
-  }
+    box-sizing: border-box;
+}
 
-body {
-    font-family: Arial, sans-serif;
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/DMSerifDisplay-Italic.ttf); 
+}
+
+@font-face {
+    font-family: paragraphFont;
+    src: url(../fonts/Bitter-BoldItalic.ttf);
+}
+
+@font-face {
+    font-family: buttonFont;
+    src: url(../fonts/Bitter-Bold.ttf);
+}
+
+@font-face {
+    font-family: errorFont;
+    src: url(../fonts/Bitter-SemiBold.ttf);
+}
+
+.container {
+    background-image: url(../assets/Formas-09.png),
+    url(../assets/Formas-22.png),
+    url(../assets/Formas-30.png),
+    url(../assets/Formas-43.png);
+    background-position: 120% -10%,-60% 300%,160% 100%,-60% -60%;
+    background-repeat: no-repeat,no-repeat,no-repeat,no-repeat;
+    background-size: 500px,696px,650px,646px;
+    background-attachment: fixed,fixed,fixed,fixed;
+}
+
+nav {
+    background-color: #CC98F4;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.main-title {
+    background-color: #5FE0C1;
+    margin-bottom: 50px;
+    padding: 10px;
+}
+
+.main-title h1 {
+    font-family: myFirstFont;
     text-align: center;
-    margin: 20px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin-top: 20px;
+    display: grid;
+    place-items: center;
 }
 
 input[type="file"], input[type="checkbox"] {
     margin-bottom: 10px;
 }
 
-button {
-    background-color: #FFB81A;
-    margin-top: 10px;
+.submit-form-button {
+    background-color: #FF6E2E;
+    margin-top: 20px;
     color: white;
     border: none;
-    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
     border-radius: 10px;
+    margin-bottom: 50px;
+    padding: 15px;
+    width: 200px;
 }
 
-button:hover {
-    background-color: #FF6E2E;
+#input-button {
+    background-color: #CC98F4;
+    margin-top: 10px;
+    color: #FFFFFF;
+    border: none;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 12px;
+
 }
 
-p {
-    color: #f44336;
+.submit-form-button:hover {
+    padding: 14px;
+    width: 195px;
 }
+
+.error-message {
+    text-align: center;
+    font-family: paragraphFont;
+    color: red;
+    margin-bottom: 15px;
+}
+
+.username {
+    font-family: paragraphFont;
+    color: #1D1D1B;
+}
+
+footer {
+    background-color: #CC98F4;
+    padding: 10px;
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    width:100%;
+}
+
+.input-video-card {
+    display: flex;
+    flex-direction: column;
+    font-family: paragraphFont;
+    padding: 20px;
+    width: 20%;
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #FFEBE5;
+}
+
+.button-container {
+    text-align: center;
+    display: inline-block;
+}
+
+.accent-checkbox {
+    accent-color: #CC98F4;
+    margin-top: 10px;
+}
+
+select {
+    margin-top: 10px;
+    border: 0 none;
+    border-radius: 10px;
+    background-color: #CC98F4;
+    padding: 5px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .input-video-card {
+        width: 40%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .input-video-card {
+        margin-top: -10px;
+    }
+    .submit-form-button {
+        margin-top: 2px;
+    }
+  }

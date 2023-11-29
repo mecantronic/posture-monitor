@@ -39,18 +39,18 @@ def generate_frames(video_path=0):
     out.release()
      
 @app.route("/")
-def index():
-     return render_template("video_input.html")
-
-@app.route("/login")
 def login():
      return render_template("login.html")
 
-@app.route("/term")
+@app.route("/video_input")
+def index():
+     return render_template("video_input.html")
+
+@app.route("/term_conditions")
 def term_conditions():
      return render_template("term_conditions.html")
 
-@app.route("/activity")
+@app.route("/choose_activity")
 def select_activity():
      return render_template("select_activity.html")
 
