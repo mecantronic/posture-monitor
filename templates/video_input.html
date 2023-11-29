@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>Vittance Pose</title>
+
+</head>
+
+<body class = "container">
+    <h1>Video input</h1>
+
+    <form action="{{ url_for('video_feed') }}" method="post" enctype="multipart/form-data">
+        <label for="file" id="videoLabel">Input video</label>
+        <input type="file" name="file" id="file" accept="video/*" >
+        
+        <label for="use_webcam">Input webcam</label>
+        <input type="checkbox" name="use_webcam" id="use_webcam" onchange="toggleFileInput()">
+
+        <label for="videoOptions" id="videoOptionsLabel">Test videos</label>
+        <select name="videoOptions" id="videoOptions">
+            <option value="Nothing">Nothing</option>
+            <option value="Test_1">Test_1</option>
+            <option value="Test_2">Test_2</option>
+        </select>
+
+        <button type="submit">Process</button>
+    </form>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+</body>
+
+</html>
