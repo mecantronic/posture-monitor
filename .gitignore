@@ -9,6 +9,9 @@ venv/
 venv.bak/
 env/
 
+# Uploads folder
+uploads/
+
 # IDE files
 .idea/
 .vscode/
