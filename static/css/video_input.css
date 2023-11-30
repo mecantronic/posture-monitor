@@ -25,10 +25,7 @@
 }
 
 .container {
-    background-image: url(../assets/Formas-09.png),
-    url(../assets/Formas-22.png),
-    url(../assets/Formas-30.png),
-    url(../assets/Formas-43.png);
+    background-image: url(../assets/Formas-09.png);
     background-position: 120% -10%,-60% 300%,160% 100%,-60% -60%;
     background-repeat: no-repeat,no-repeat,no-repeat,no-repeat;
     background-size: 500px,696px,650px,646px;
@@ -62,11 +59,11 @@ form {
 }
 
 input[type="file"], input[type="checkbox"] {
-    margin-bottom: 10px;
+    height: 30px;
 }
 
 .submit-form-button {
-    background-color: #FF6E2E;
+    background-color: #FFB81A;
     margin-top: 20px;
     color: white;
     border: none;
@@ -75,10 +72,12 @@ input[type="file"], input[type="checkbox"] {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 35px;
     margin-bottom: 50px;
     padding: 15px;
     width: 200px;
+    transition: all 0.3s ease; /* Agregamos una transición para suavizar el cambio */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agregamos una sombra sutíl */
 }
 
 #input-button {
@@ -97,6 +96,8 @@ input[type="file"], input[type="checkbox"] {
 .submit-form-button:hover {
     padding: 14px;
     width: 195px;
+    background-color: #FFA500; /* Cambiamos ligeramente el color al hacer hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Aumentamos la intensidad de la sombra */
 }
 
 .error-message {
@@ -109,15 +110,6 @@ input[type="file"], input[type="checkbox"] {
 .username {
     font-family: paragraphFont;
     color: #1D1D1B;
-}
-
-footer {
-    background-color: #CC98F4;
-    padding: 10px;
-    position:fixed;
-    left:0px;
-    bottom:0px;
-    width:100%;
 }
 
 .input-video-card {
@@ -143,6 +135,8 @@ footer {
 
 select {
     margin-top: 10px;
+    margin-left: 15px;
+    width: 200px;
     border: 0 none;
     border-radius: 10px;
     background-color: #CC98F4;
@@ -153,7 +147,7 @@ select {
 
 @media (max-width: 1024px) {
     .input-video-card {
-        width: 40%;
+        width: 50%;
     }
   }
 
