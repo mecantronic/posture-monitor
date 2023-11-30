@@ -47,10 +47,13 @@
     border: 0;
     margin-top: 30px;
     font-family: buttonFont;
+    transition: transform 0.3s ease; /* Agregamos una transición para suavizar el cambio */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agregamos una sombra sutíl */
 }
 
 .term-conditions-button:hover {
     transform: scale(1.1); /* Agrandar al hacer hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Aumentamos la intensidad de la sombra */
 }
 
 h1 {
