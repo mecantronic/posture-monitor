@@ -23,7 +23,11 @@ document.addEventListener('DOMContentLoaded', function () {
             img.style.height = '180px';
         });
     });
+    let myButton = document.getElementById('input-button')
 
+    myButton.addEventListener('click', (e) => {
+   e.target.previousElementSibling.click()
+  })
 });
 
 
@@ -51,21 +55,29 @@ document.getElementById('videoInput').addEventListener('change', function (event
 });
 
 function toggleFileInput() {
-    var fileInput = document.getElementById('file');
+    //var fileInput = document.getElementById('file');
     var videoLabel = document.getElementById('videoLabel');
     var webcamCheckbox = document.getElementById('use_webcam');
     var videoOptions = document.getElementById('videoOptions');
     var videoOptionsLabel = document.getElementById('videoOptionsLabel');
+    var videoInputFile = document.getElementById('input-video-file');
+    var videoInputSelect = document.getElementById('input-video-select');
 
     if (webcamCheckbox.checked) {
-        fileInput.style.display = 'none';
+        //fileInput.style.display = 'none';
         videoLabel.style.display = 'none';
         videoOptions.style.display = 'none';
         videoOptionsLabel.style.display = 'none';
+        videoInputFile.style.display = 'none';
+        videoInputSelect.style.display = 'none';
+        
+
     } else {
-        fileInput.style.display = 'block';
+        //fileInput.style.display = 'block';
         videoLabel.style.display = 'block';
         videoOptions.style.display = 'block';
-        videoOptionsLabel.style.display = 'none';
+        videoInputFile.style.display = 'block';
+        videoInputSelect.style.display = 'block';
+        videoOptionsLabel.style.display = 'block';
     }
 }

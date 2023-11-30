@@ -6,3 +6,4 @@ opencv-contrib-python
 opencv-python
 sounddevice
 Gunicorn
+tqdm

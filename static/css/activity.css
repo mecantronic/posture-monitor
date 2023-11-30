@@ -52,16 +52,30 @@ nav {
     margin-top: 30px;
     margin-bottom: 50px;
     font-family: buttonFont;
+    transition: all 0.3s ease; /* Agregamos una transición para suavizar el cambio */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agregamos una sombra sutíl */
 }
 
 .button-select-activity:hover {
     padding: 14px;
     width: 195px;
-} 
+    background-color: #FFA500; /* Cambiamos ligeramente el color al hacer hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Aumentamos la intensidad de la sombra */
+}
 
 .bg-activity-image {
-    opacity: 0.5;
+    opacity: 0.6;
     margin-bottom: 10px;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease; /* Agregamos una transición para suavizar el cambio de opacidad y la sombra */
+    cursor: pointer; /* Cambiamos el cursor para indicar que es interactivo */
+    border-radius: 10px; /* Agregamos bordes redondeados */
+    overflow: hidden; /* Para asegurar que las esquinas redondeadas se apliquen correctamente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agregamos una sombra sutil */
+}
+
+.bg-activity-image:hover {
+    opacity: 1; /* Cambiamos la opacidad al hacer hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumentamos la intensidad de la sombra al hacer hover */
 }
 
 .section-activity {
@@ -91,11 +105,16 @@ nav {
     font-family: myFirstFont;
 }
 
-footer {
-    background-color: #CC98F4;
-    padding: 30px;
-}
-
 .username {
     font-family: paragraphFont;
 }
+
+.section-activity img {
+    border-radius: 20px;
+}
+
+@media (max-width: 1024px) {
+    .activity-container {
+        display: block;
+    }
+  }
