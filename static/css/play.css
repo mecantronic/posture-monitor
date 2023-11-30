@@ -43,15 +43,27 @@ nav {
 
 .main-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
   background-color: #FFEBE5;
-  padding: 40px 0;
+  padding: 40px 0 10px 0;
 }
 
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
 
+.flexBTN {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 000;
+}
 
 
 .video-container {
@@ -125,4 +137,8 @@ button {
 
 button:hover {
   transform: scale(1.1);
+}
+
+.download{
+  color: #FF6E2F;
 }
