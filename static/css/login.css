@@ -20,30 +20,38 @@
 .container {
     text-align: center;
     background-color: #FFEBE5;
+    display: flex;
+    justify-content: center;
+    background-image: url(../assets/Formas-09.png);
+    background-position: 20% 20%,-60% 300%,160% 100%,-60% -60%;
+    background-repeat: no-repeat,no-repeat,no-repeat,no-repeat;
+    background-size: 500px,696px,650px,646px;
+    background-attachment: fixed,fixed,fixed,fixed;
  }
 
-.login-button {
+ .login-button {
     border-radius: 35px;
     padding: 15px;
-    width: 200px;
-    background-color: #CC98F4;
+    width: 150px;
+    background-color: #FF6E2E;
     border: 0;
-    margin-top: 30px;
+    margin-top: 60px;
     font-family: buttonFont;
+    transition: transform 0.3s ease; /* Agregamos una transición para suavizar el cambio */
 }
 
 .login-button:hover {
-    padding: 14px;
-    width: 195px;
+    transform: scale(1.1); /* Agrandar al hacer hover */
 }
+
 
 .login-input {
     width: 300px;
     height: 25px;
     border-radius: 10px;
-    background-color: #F2E0F3;
+    background-color: #ffffff;
     border: 0;
-    margin-top: 15px;
+    margin-top: 25px;
     padding: 10px;
     font-family: paragraphFont;
 }
@@ -68,13 +76,17 @@ h1 {
 }
 
 .img-characters {
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .login-section {
-    background-color: aliceblue;
+    background-color: #5FE0C1;
     padding: 50px 15px;
+    border-radius: 35px;
+    margin-left: 150px;
 }
+
+
 
 @media (max-width: 1024px) {
     .main-container {
@@ -82,6 +94,8 @@ h1 {
     }
     .login-section {
         margin-bottom: 100px;
+        border-radius: 35px;
+        margin-left: 0px;
     }
     .img-characters {
         display: none;
