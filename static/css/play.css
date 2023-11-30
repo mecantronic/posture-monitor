@@ -1,5 +1,5 @@
 * {
-  margin: 0
+  margin: 0;
 }
 
 body {
@@ -22,7 +22,7 @@ body {
 
 nav {
   background-color: #cc98f4;
-  height: 30px;
+  height: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;

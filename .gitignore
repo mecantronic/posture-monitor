@@ -9,8 +9,9 @@ venv/
 venv.bak/
 env/
 
-# Uploads folder
-uploads/
+# Processing folder
+processing/uploads/video_input.mp4
+processing/downloads/Test_2.mp4
 
 # File video_output
 video_output.mp4
