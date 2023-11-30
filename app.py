@@ -73,6 +73,7 @@ def video_feed():
         
         video_path = os.path.join('uploads', 'video_input.mp4')
         file.save(video_path)
+        
     return Response(generate_frames(video_path),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
