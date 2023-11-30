@@ -1,0 +1,144 @@
+* {
+  margin: 0
+}
+
+body {
+  min-height: 100vh;
+}
+@font-face {
+  font-family: myFirstFont;
+  src: url(../fonts/DMSerifDisplay-Italic.ttf);
+}
+
+@font-face {
+  font-family: paragraphFont;
+  src: url(../fonts/Bitter-BoldItalic.ttf);
+}
+
+@font-face {
+  font-family: buttonFont;
+  src: url(../fonts/Bitter-Bold.ttf);
+}
+
+nav {
+  background-color: #cc98f4;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+}
+
+.username {
+  font-family: paragraphFont;
+}
+
+.main-title {
+  background-color: #5fe0c1;
+  padding: 10px 0;
+  width: 100%;
+  text-align: center;
+  
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  background-color: #FFEBE5;
+  padding: 40px 0 10px 0;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexBTN {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 000;
+}
+
+
+.video-container {
+  width: 500px;
+}
+
+.main-title h1 {
+  font-family: myFirstFont;
+}
+
+.info-container {
+  width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 20px;
+  padding: 20px;
+}
+
+.info-section {
+  text-align: center;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-section img {
+  width: 200px;
+  height: 200px;
+}
+
+h2, h3, h4 {
+  font-family: paragraphFont;
+  margin: 5px 0;
+}
+
+.timer-container {
+  margin-top: 10px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.timer, .value {
+  margin-bottom: 10px;
+}
+
+footer {
+  background-color: #cc98f4;
+  padding: 30px;
+}
+
+span {
+  font-family: paragraphFont;
+}
+
+button {
+  all: unset;
+  padding: 5px;
+  color: #feb81a;
+  font-family: buttonFont;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.download{
+  color: #FF6E2F;
+}
