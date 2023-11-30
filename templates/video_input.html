@@ -10,28 +10,49 @@
 
 </head>
 
-<body class = "container">
-    <h1>Video input</h1>
+<body class="container">
+    <nav>
+        <img src="../static/assets/Logo Caviar Black (1).png" width="110px" height="55px">
+        <p class="username">Sofia Medina</p>
+    </nav>
 
-    <form action="{{ url_for('video_feed') }}" method="post" enctype="multipart/form-data">
-        <label for="file" id="videoLabel">Input video</label>
-        <input type="file" name="file" id="file" accept="video/*" >
+    <main class="main-container">
+        <div class="main-title">
+            <h1>Video input</h1>
+        </div>
         
-        <label for="use_webcam">Input webcam</label>
-        <input type="checkbox" name="use_webcam" id="use_webcam" onchange="toggleFileInput()">
+        <div>
+                <form action="{{ url_for('video_feed') }}" method="post" enctype="multipart/form-data">
+                    <div class="input-video-card video-label" id="input-video-file">
+                        <label for="file" id="videoLabel">Input video</label>
+                        <input type="file" name="file" id="file" accept="video/*" style="color: transparent;">
+                    </div>
+                    
+                    <div class="input-video-card webcam-label">
+                        <label for="use_webcam">Input webcam</label>
+                        <input type="checkbox" name="use_webcam" id="use_webcam" onchange="toggleFileInput()" class="accent-checkbox">
+                    </div>
 
-        <label for="videoOptions" id="videoOptionsLabel">Test videos</label>
-        <select name="videoOptions" id="videoOptions">
-            <option value="Nothing">Nothing</option>
-            <option value="Test_1">Test_1</option>
-            <option value="Test_2">Test_2</option>
-        </select>
-
-        <button type="submit">Process</button>
-    </form>
-    {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
+                    <div class="input-video-card" id="input-video-select">
+                        <label for="videoOptions" id="videoOptionsLabel">Test videos</label>
+                        <select name="videoOptions" id="videoOptions" class="input-video-options">
+                            <option value="Nothing">Nothing</option>
+                            <option value="Test_1">Test_1</option>
+                            <option value="Test_2">Test_2</option>
+                        </select>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit" class="submit-form-button">Process</button>
+                    </div>
+                </form>
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+        </div>
+    </main>
+    <footer id="footer-video-input">
+        <img src="../static/assets/Logo Caviar Black (1).png" width="110px" height="55px">
+    </footer>
 </body>
 
 </html>

@@ -75,3 +75,28 @@ h1 {
     background-color: aliceblue;
     padding: 50px 15px;
 }
+
+@media (max-width: 1024px) {
+    .main-container {
+        display: block;
+    }
+    .login-section {
+        margin-bottom: 100px;
+    }
+    .img-characters {
+        display: none;
+    }
+    section img {
+        margin-bottom: 30px;
+        margin-top: -20px;
+    }
+    .img-characters-2 {
+        margin-bottom: 10px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .img-characters-2 {
+        display: none;
+  }
+}

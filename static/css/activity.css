@@ -99,3 +99,13 @@ footer {
 .username {
     font-family: paragraphFont;
 }
+
+.section-activity img {
+    border-radius: 20px;
+}
+
+@media (max-width: 1024px) {
+    .activity-container {
+        display: block;
+    }
+  }
