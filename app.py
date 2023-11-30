@@ -15,7 +15,6 @@ def generate_output(video_path=0):
     else: 
         process_frame_video(video_path)
     
-     
 @app.route("/")
 def login():
      return render_template("login.html")
