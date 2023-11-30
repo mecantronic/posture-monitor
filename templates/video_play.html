@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/play.css" />
+    <title>Video Information</title>
+  </head>
+  <body>
+    <nav>
+      <img
+        src="../static/assets/Logo Caviar Black (1).png"
+        width="110px"
+        height="55px"
+      />
+      <p class="username">Sofia Medina</p>
+    </nav>
+    <div class="main-title">
+      <h1 class="text">Video Information</h1>
+    </div>
+    <main class="main-container">
+
+      <div class="video-container">
+        <video id="miVideo" width="500" height="600" controls>
+          <source
+            src="../static/assets/test-videos/Test_2.mp4"
+            type="video/mp4"
+          />
+          Tu navegador no soporta el tag de video.
+        </video>
+      </div>
+
+      <div class="info-container">
+        <div class="info-section">
+          <h2>Elbow</h2>
+          <img
+            src="../static/assets/elbowParameter.png"
+            alt="elbow parameter"
+            width="200"
+            height="200"
+          />
+          <h3>Elbow Parameter</h3>
+          <div class="timer-container">
+            <h4>Incorrect Time</h4>
+            <div class="elbowwrapper">
+              <div class="elbowtime">
+                <span class="elbowhour">00</span>
+                <span class="elbowcolon">:</span>
+                <span class="elbowminute">00</span>
+                <span class="elbowcolon">:</span>
+                <span class="elbowsecond">00</span>
+              </div>
+              <div class="elbowbuttons">
+                <button class="elbowstart">Start</button>
+                <button class="elbowstop">Stop</button>
+                <button class="elbowreset">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h2>Shoulder</h2>
+          <img
+            src="../static/assets/shoulderParameter.png"
+            alt="shoulder parameter"
+            width="200"
+            height="200"
+          />
+          <h4>Shoulder Parameter</h4>
+          <div class="shoulderwrapper">
+            <h3>Incorrect Time</h3>
+            <div class="shouldertime">
+              <span class="shoulderhour">00</span>
+              <span class="shouldercolon">:</span>
+              <span class="shoulderminute">00</span>
+              <span class="shouldercolon">:</span>
+              <span class="shouldersecond">00</span>
+            </div>
+            <div class="shoulderbuttons">
+              <button class="shoulderstart">Start</button>
+              <button class="shoulderstop">Stop</button>
+              <button class="shoulderreset">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <img
+        src="../static/assets/Logo Caviar Black (1).png"
+        width="110px"
+        height="55px"
+      />
+    </footer>
+    <script src="../static/js/timer.js"></script>
+  </body>
+</html>

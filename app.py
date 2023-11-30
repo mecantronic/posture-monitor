@@ -76,5 +76,9 @@ def video_feed():
     return Response(generate_frames(video_path),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route("/video_play")
+def video_play():
+     return render_template("video_play.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
