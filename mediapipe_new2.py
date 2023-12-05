@@ -221,7 +221,7 @@ def findAngle(x1, y1, x2, y2):
 mp_drawing = mp.solutions.drawing_utils  # Ref: https://github.com/google/mediapipe/blob/master/mediapipe/python/solutions/drawing_utils.py
 mp_pose = mp.solutions.pose  # Ref: https://github.com/google/mediapipe/blob/master/docs/solutions/pose.md
 
-cap = cv2.VideoCapture("static/assets/test-videos/Test_1.mp4")
+cap = cv2.VideoCapture("processing/uploads/WhatsApp Video 2023-12-04 at 14.03.09.mp4")
 fps = cap.get(cv2.CAP_PROP_FPS) # Get fps.
 total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))  # Total number of frames in the video
 width = int(cap.get(3))
@@ -232,12 +232,12 @@ out = cv2.VideoWriter('processing/downloads/video_output.mp4', fourcc, fps, (wid
 
 with mp_pose.Pose(
     static_image_mode = False, # The solution treats the input images as a video stream. Default: False.
-    model_complexity = 1,  # Complexity of the pose landmark model: 0, 1 or 2. Default: 1.
+    model_complexity = 2,  # Complexity of the pose landmark model: 0, 1 or 2. Default: 1.
     smooth_landmarks = True,  # The solution filters pose landmarks across different input images to reduce jitter. Default: True.
     enable_segmentation = True,  #  In addition to the pose landmarks the solution also generates the segmentation mask. Default: False.
     smooth_segmentation = True,  # The solution filters pose landmarks across different input images to reduce jitter. Default: True.
     min_detection_confidence = 0.5,  # Minimum confidence value ([0.0, 1.0]) from the person-detection model for the detection to be considered successful. Default to 0.5.
-    min_tracking_confidence = 0.5 ) as pose:  # Minimum confidence value ([0.0, 1.0]) from the landmark-tracking model for the pose landmarks to be considered tracked successfully.  Setting it to a higher value can increase robustness of the solution, at the expense of a higher latency. Default to 0.5.
+    min_tracking_confidence = 0.3 ) as pose:  # Minimum confidence value ([0.0, 1.0]) from the landmark-tracking model for the pose landmarks to be considered tracked successfully.  Setting it to a higher value can increase robustness of the solution, at the expense of a higher latency. Default to 0.5.
     
     # Use tqdm to create a progress bar
     with tqdm(total=total_frames, desc="Processing frames") as pbar:
@@ -269,16 +269,16 @@ with mp_pose.Pose(
             lmPose = mp_pose.PoseLandmark
 
             if results.pose_landmarks is not None:
-                frame, good_frames, bad_frames = decant_process(frame,lm,lmPose,height, width,offset_threshold=100, shoulder_angle_threshold=(20,60), elbow_angle_threshold=(60,100))
-                ''' METHOD TO DRAW Under Test
+                #frame, good_frames, bad_frames = decant_process(frame,lm,lmPose,height, width,offset_threshold=100, shoulder_angle_threshold=(20,60), elbow_angle_threshold=(60,100))
+                # METHOD TO DRAW Under Test
                 mp_drawing.draw_landmarks(
                     frame, 
                     results.pose_landmarks, 
                     mp_pose.POSE_CONNECTIONS,
-                    mp_drawing.DrawingSpec(color=(128, 0, 250), thickness=3, circle_radius=5),
-                    mp_drawing.DrawingSpec(color=(0, 0, 0), thickness=2))
+                    mp_drawing.DrawingSpec(color=(128, 0, 250), thickness=2, circle_radius=4),
+                    mp_drawing.DrawingSpec(color=(255, 255, 255), thickness=2))
                 '''
-            # Calculate the time of remaining in a particular posture.
+                # Calculate the time of remaining in a particular posture.
                 good_time = (1 / fps) * good_frames
                 bad_time = (1 / fps) * bad_frames
 
@@ -289,7 +289,7 @@ with mp_pose.Pose(
                 else:
                     time_string_bad = 'Bad Posture Time : ' + str(round(bad_time, 1)) + 's'
                     cv2.putText(frame, time_string_bad, (10, height - 20), font, 0.9, red, 2)
-                
+                '''
                 # Flip the image horizontally for a selfie-view display.
                 cv2.imshow('MediaPipe Pose', frame)
                 #cv2.imshow('MediaPipe Pose', cv2.flip(black_image, 1))
