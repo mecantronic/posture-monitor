@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/DMSerifDisplay-Italic.ttf);
+}
+  
+@font-face {
+    font-family: paragraphFont;
+    src: url(../fonts/Bitter-BoldItalic.ttf);
+}
+
+@font-face {
+    font-family: buttonFont;
+    src: url(../fonts/Bitter-Bold.ttf);
+}
+
+.container {
+    text-align: center;
+    background-color: #FFEBE5;
+    display: flex;
+    justify-content: center;
+    background-image: url(../assets/Formas-09.png);
+    background-position: 20% 20%,-60% 300%,160% 100%,-60% -60%;
+    background-repeat: no-repeat,no-repeat,no-repeat,no-repeat;
+    background-size: 500px,696px,650px,646px;
+    background-attachment: fixed,fixed,fixed,fixed;
+ }
+
+ .login-button {
+    border-radius: 35px;
+    padding: 15px;
+    width: 150px;
+    background-color: #FF6E2E;
+    border: 0;
+    margin-top: 60px;
+    font-family: buttonFont;
+    transition: transform 0.3s ease; /* Agregamos una transición para suavizar el cambio */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agregamos una sombra sutíl */
+}
+
+.login-button:hover {
+    transform: scale(1.1); /* Agrandar al hacer hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Aumentamos la intensidad de la sombra */
+}
+
+
+.login-input {
+    width: 300px;
+    height: 25px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    border: 0;
+    margin-top: 25px;
+    padding: 10px;
+    font-family: paragraphFont;
+}
+
+.input {
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.text {
+    color: #1D1D1B;
+}
+
+.main-container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-around;
+}
+
+h1 {
+    font-family: myFirstFont;
+}
+
+.img-characters {
+    margin-top: 5px;
+}
+
+.login-section {
+    background-color: #5FE0C1;
+    padding: 50px 15px;
+    border-radius: 35px;
+    margin-left: 150px;
+}
+
+
+
+@media (max-width: 1024px) {
+    .main-container {
+        display: block;
+    }
+    .login-section {
+        margin-bottom: 100px;
+        border-radius: 35px;
+        margin-left: 0px;
+    }
+    .img-characters {
+        display: none;
+    }
+    section img {
+        margin-bottom: 30px;
+        margin-top: -20px;
+    }
+    .img-characters-2 {
+        margin-bottom: 10px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .img-characters-2 {
+        display: none;
+  }
+}
