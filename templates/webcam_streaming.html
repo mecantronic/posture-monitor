@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFB81A">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Vitaance Care landing page">
+    <meta name="author" content="Created by Mecantronic">
+
+    <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
+	<meta property="og:site_name" content="Vitaance Care" /> <!-- website name -->
+	<meta property="og:site" content="https://vitaance-pose.onrender.com" /> <!-- website link -->
+	<meta property="og:title" content="Vitaance Care"/> <!-- title shown in the actual shared post -->
+	<meta property="og:type" content="Landing Page" />
+
+    <!-- Website Title -->
+    <title>Vitaance Care</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/webcam.css') }}">
+    <!-- Favicon  -->
+    <link rel="icon" href="static/assets/favicon.ico">
+    <!-- Script  -->
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d/control_utils_3d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="container">
+    <nav>
+        <img src="../static/assets/Logo Caviar Black (1).png" width="110px" height="55px">
+        <p class="username">Sofia Medina</p>
+    </nav>
+    <main class="main-container">
+        <div class="main-title">
+            <h1 class="text">Demo Webcam</h1>
+        </div>
+        <section id="demos" class="invisible">
+            <h2>Continuous pose landmarks detection</h2>
+            <p>Stand in front of your webcam to get real-time pose landmarker detection.</br>Click <b>enable webcam</b> below and grant access to the webcam if prompted.</p>
+                <video class="input_video"></video>
+                <canvas class="output_canvas" width="480px" height="270px"></canvas>
+                <div class="landmark-grid-container"></div>
+        </section>
+    </main>
+    <script defer src="../static/js/webcam.js"></script>
+</body>
+
+</html>
