@@ -31,6 +31,10 @@ def term_conditions():
 def select_activity():
      return render_template("select_activity.html")
 
+@app.route('/webcam')
+def webcam_streaming():
+     return render_template("webcam_streaming.html")
+
 @app.route('/video_feed', methods=['POST'])
 def video_feed():
     use_webcam = request.form.get('use_webcam')  # Obtener el valor del checkbox
