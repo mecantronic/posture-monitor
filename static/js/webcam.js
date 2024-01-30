@@ -1,8 +1,13 @@
 const videoElement = document.getElementsByClassName('input_video')[0];
+// Ocultar el video original usando CSS.
+videoElement.style.display = "none";
 const canvasElement = document.getElementsByClassName('output_canvas')[0];
 const canvasCtx = canvasElement.getContext('2d');
 const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
 const grid = new LandmarkGrid(landmarkContainer);
+// Checkbox for Mask
+var maskOn = false;
+
 
 function onResults(results) {
   if (!results.poseLandmarks) {
@@ -12,24 +17,26 @@ function onResults(results) {
 
   canvasCtx.save();
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-  canvasCtx.drawImage(results.segmentationMask, 0, 0,
-                      canvasElement.width, canvasElement.height);
+  if (maskOn) {
+    canvasCtx.globalCompositeOperation = 'source-in';
+    canvasCtx.drawImage(results.image, 0, 0,
+                        canvasElement.width, canvasElement.height);
 
-  // Only overwrite existing pixels.
-  canvasCtx.globalCompositeOperation = 'source-in';
-  canvasCtx.fillStyle = '#00FF00';
-  canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
-
-  // Only overwrite missing pixels.
-  canvasCtx.globalCompositeOperation = 'destination-atop';
-  canvasCtx.drawImage(
+    canvasCtx.globalCompositeOperation = 'destination-atop';
+    canvasCtx.fillStyle = '#000000';
+    canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
+    
+  } else {
+    canvasCtx.globalCompositeOperation = 'destination-atop';
+    canvasCtx.drawImage(
       results.image, 0, 0, canvasElement.width, canvasElement.height);
+  }
 
   canvasCtx.globalCompositeOperation = 'source-over';
   drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-                 {color: '#191970', lineWidth: 4});
+                 {color: '#FF0000', lineWidth: 4});
   drawLandmarks(canvasCtx, results.poseLandmarks,
-                {color: '#191970', lineWidth: 2});
+                {color: '#FF0000', lineWidth: 2});
   canvasCtx.restore();
 
    grid.updateLandmarks(results.poseWorldLandmarks);
