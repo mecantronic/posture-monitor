@@ -57,9 +57,11 @@ function onResults(results) {
   //   console.log(results)
   //   console.log(videoMetrics)
   // }
+  // counter += 1;
+  
   // Run metrics calculations
   decantProcess(results.poseLandmarks, 270, 480)
-  counter += 1;
+  
   canvasCtx.restore();
 
    grid.updateLandmarks(results.poseWorldLandmarks);
