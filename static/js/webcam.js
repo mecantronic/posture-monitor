@@ -25,7 +25,7 @@ function onResults(results) {
      grid.updateLandmarks([]);
     return;
   }
-  if (frameCounter % 5 === 0) {  // Actualizar cada 5 fotogramas (ajustable según sea necesario)
+  if (frameCounter % 2 === 0) {  // Actualizar cada 5 fotogramas (ajustable según sea necesario)
     // Aplicar mirror horizontal a videoElement
     videoElement.style.transform = 'scaleX(-1)';  
 
