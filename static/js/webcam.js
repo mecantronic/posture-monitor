@@ -19,8 +19,16 @@ function onResults(results) {
     return;
   }
 
+  // Aplicar espejo horizontal al videoElement
+  videoElement.style.transform = 'scaleX(-1)';
+
   canvasCtx.save();
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+  // Aplicar mirror (espejo) horizontal al canvasElement
+  canvasCtx.scale(-1, 1);
+  canvasCtx.translate(-canvasElement.width, 0);
+
   canvasCtx.drawImage(results.segmentationMask, 0, 0,
                       canvasElement.width, canvasElement.height);
 
