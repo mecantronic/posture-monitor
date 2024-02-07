@@ -79,7 +79,7 @@ pose.setOptions({
   smoothSegmentation: false,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
   minDetectionConfidence: 0.2,  // Minimum confidence value ([0.0, 1.0]) from the person-detection model for the detection to be considered successful. Default to 0.5.
   minTrackingConfidence: 0.3,  // Minimum confidence value ([0.0, 1.0]) from the landmark-tracking model for the pose landmarks to be considered tracked successfully.  Setting it to a higher value can increase robustness of the solution, at the expense of a higher latency. Default to 0.5.
-  outputSegmentationMasks: false  // Whether Pose Landmarker outputs a segmentation mask for the detected pose.
+  outputSegmentationMasks: true  // Whether Pose Landmarker outputs a segmentation mask for the detected pose.
 });
 pose.onResults(onResults);
 
