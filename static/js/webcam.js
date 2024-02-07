@@ -34,12 +34,13 @@ function onResults(results) {
   canvasCtx.drawImage(
       results.image, 0, 0, canvasElement.width, canvasElement.height);
 
+  canvasCtx.scale(-1, 1); // Flip the image horizontally
+  
   canvasCtx.globalCompositeOperation = 'source-over';
   drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
                  {color: '#191970', lineWidth: 4});
   drawLandmarks(canvasCtx, results.poseLandmarks,
                 {color: '#191970', lineWidth: 2});
-  canvasCtx.scale(-1, 1); // Flip the image horizontally
   canvasCtx.restore();
 
   grid.updateLandmarks(results.poseWorldLandmarks);
@@ -65,6 +66,6 @@ const camera = new Camera(videoElement, {
   },
   width: 480,
   height: 270,
-  videoMirror: true
+  videoMirror: false
 });
 camera.start();
