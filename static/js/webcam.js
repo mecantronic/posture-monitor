@@ -6,6 +6,7 @@ const grid = new LandmarkGrid(landmarkContainer);
 
 let previousTimestamp = 0;
 const fpsList = [];
+let frameCounter = 0;  // Contador de fotogramas
 
 function onResults(results) {
   // Calcular FPS
@@ -15,44 +16,49 @@ function onResults(results) {
   fpsList.push(fps);
   previousTimestamp = timestamp;
 
+  // Incrementar el contador de fotogramas
+  frameCounter++;
+
   // console.log(`FPS: ${fps.toFixed(1)}`); FPS instantaneos
 
   if (!results.poseLandmarks) {
      grid.updateLandmarks([]);
     return;
   }
+  if (frameCounter % 5 === 0) {  // Actualizar cada 5 fotogramas (ajustable según sea necesario)
+    // Aplicar mirror horizontal a videoElement
+    videoElement.style.transform = 'scaleX(-1)';  
 
-  // Aplicar mirror horizontal a videoElement
-  videoElement.style.transform = 'scaleX(-1)';
+    canvasCtx.save();
+    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
-  canvasCtx.save();
-  canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+    // Aplicar mirror horizontal a canvasElement
+    canvasCtx.scale(-1, 1);
+    canvasCtx.translate(-canvasElement.width, 0);
 
-  // Aplicar mirror horizontal a canvasElement
-  canvasCtx.scale(-1, 1);
-  canvasCtx.translate(-canvasElement.width, 0);
+    canvasCtx.drawImage(results.segmentationMask, 0, 0,
+                        canvasElement.width, canvasElement.height);
 
-  canvasCtx.drawImage(results.segmentationMask, 0, 0,
-                      canvasElement.width, canvasElement.height);
+    // Only overwrite existing pixels.
+    canvasCtx.globalCompositeOperation = 'source-in';
+    canvasCtx.fillStyle = '#00FF00';
+    canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
 
-  // Only overwrite existing pixels.
-  canvasCtx.globalCompositeOperation = 'source-in';
-  canvasCtx.fillStyle = '#00FF00';
-  canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
+    // Only overwrite missing pixels.
+    canvasCtx.globalCompositeOperation = 'destination-atop';
+    canvasCtx.drawImage(
+        results.image, 0, 0, canvasElement.width, canvasElement.height);
+    
+    canvasCtx.globalCompositeOperation = 'source-over';
+    drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
+                  {color: '#191970', lineWidth: 4});
+    drawLandmarks(canvasCtx, results.poseLandmarks,
+                  {color: '#191970', lineWidth: 2});
+    canvasCtx.restore();
 
-  // Only overwrite missing pixels.
-  canvasCtx.globalCompositeOperation = 'destination-atop';
-  canvasCtx.drawImage(
-      results.image, 0, 0, canvasElement.width, canvasElement.height);
-  
-  canvasCtx.globalCompositeOperation = 'source-over';
-  drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-                 {color: '#191970', lineWidth: 4});
-  drawLandmarks(canvasCtx, results.poseLandmarks,
-                {color: '#191970', lineWidth: 2});
-  canvasCtx.restore();
-
-  //grid.updateLandmarks(results.poseWorldLandmarks);
+    //grid.updateLandmarks(results.poseWorldLandmarks);
+    frameCounter = 0;  // Reiniciar el contador de fotogramas
+  }
 }
 
 function calculateAverageFPS() {
@@ -75,7 +81,7 @@ pose.setOptions({
   runningMode: "VIDEO",
   numPoses: 1,  // The maximum number of poses that can be detected by the Pose Landmarker.  
   smoothLandmarks: false,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
-  enableSegmentation: false,  // In addition to the pose landmarks the solution also generates the segmentation mask. Default: False.
+  enableSegmentation: true,  // In addition to the pose landmarks the solution also generates the segmentation mask. Default: False.
   smoothSegmentation: false,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
   minDetectionConfidence: 0.2,  // Minimum confidence value ([0.0, 1.0]) from the person-detection model for the detection to be considered successful. Default to 0.5.
   minTrackingConfidence: 0.3,  // Minimum confidence value ([0.0, 1.0]) from the landmark-tracking model for the pose landmarks to be considered tracked successfully.  Setting it to a higher value can increase robustness of the solution, at the expense of a higher latency. Default to 0.5.
