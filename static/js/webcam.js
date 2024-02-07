@@ -56,13 +56,14 @@ const pose = new Pose({locateFile: (file) => {
   return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
 }});
 pose.setOptions({
-  modelComplexity: 0,
-  runningMode: "VIDEO", 
-  smoothLandmarks: true,
-  enableSegmentation: true,
-  smoothSegmentation: true,
-  minDetectionConfidence: 0.5,
-  minTrackingConfidence: 0.3
+  modelComplexity: 0,  // Complexity of the pose landmark model: 0, 1 or 2. Default: 1.
+  static_image_mode: false, // The solution threats the input images as a video stream. Default: False.
+  runningMode: "VIDEO",  
+  smoothLandmarks: true,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
+  enableSegmentation: true,  // In addition to the pose landmarks the solution also generates the segmentation mask. Default: False.
+  smoothSegmentation: true,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
+  minDetectionConfidence: 0.2,  // Minimum confidence value ([0.0, 1.0]) from the person-detection model for the detection to be considered successful. Default to 0.5.
+  minTrackingConfidence: 0.3  // Minimum confidence value ([0.0, 1.0]) from the landmark-tracking model for the pose landmarks to be considered tracked successfully.  Setting it to a higher value can increase robustness of the solution, at the expense of a higher latency. Default to 0.5.
 });
 pose.onResults(onResults);
 
