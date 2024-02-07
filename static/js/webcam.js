@@ -63,6 +63,7 @@ const camera = new Camera(videoElement, {
     await pose.send({image: videoElement});
   },
   width: 480,
-  height: 270
+  height: 270,
+  videoMirror: true
 });
 camera.start();
