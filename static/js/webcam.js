@@ -5,14 +5,17 @@ const landmarkContainer = document.getElementsByClassName('landmark-grid-contain
 const grid = new LandmarkGrid(landmarkContainer);
 
 let previousTimestamp = 0;
+const fpsList = [];
 
 function onResults(results) {
   // Calcular FPS
   const timestamp = Date.now();
   const deltaTime = timestamp - previousTimestamp;
   const fps = 1000 / deltaTime;
-  console.log(`FPS: ${fps.toFixed(1)}`);
+  fpsList.push(fps);
   previousTimestamp = timestamp;
+
+  console.log(`FPS: ${fps.toFixed(1)}`);
 
   if (!results.poseLandmarks) {
      grid.updateLandmarks([]);
@@ -52,6 +55,17 @@ function onResults(results) {
   //grid.updateLandmarks(results.poseWorldLandmarks);
 }
 
+function calculateAverageFPS() {
+  if (fpsList.length === 0) {
+    console.log("No FPS data available.");
+    return;
+  }
+
+  const sum = fpsList.reduce((acc, fps) => acc + fps, 0);
+  const averageFPS = sum / fpsList.length;
+  console.log(`Average FPS: ${averageFPS.toFixed(1)}`);
+}
+
 const pose = new Pose({locateFile: (file) => {
   return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
 }});
@@ -75,4 +89,10 @@ const camera = new Camera(videoElement, {
   height: 270,
   videoMirror: false
 });
+
+// Iniciar el cálculo del promedio después de unos segundos
+setTimeout(() => {
+  setInterval(calculateAverageFPS, 5000); // Calcular el promedio cada 5 segundos
+}, 5000);
+
 camera.start();
