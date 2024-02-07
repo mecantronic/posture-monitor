@@ -4,6 +4,9 @@ const canvasCtx = canvasElement.getContext('2d');
 const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
 const grid = new LandmarkGrid(landmarkContainer);
 
+// Ocultar el elemento <video> al inicio
+videoElement.style.display = 'none';
+
 let previousTimestamp = 0;
 const fpsList = [];
 let frameCounter = 0;  // Contador de fotogramas
@@ -36,12 +39,17 @@ function onResults(results) {
     canvasCtx.scale(-1, 1);
     canvasCtx.translate(-canvasElement.width, 0);
 
-    canvasCtx.drawImage(results.segmentationMask, 0, 0,
-                        canvasElement.width, canvasElement.height);
+    // Agrega la SegmentationMasks
+    //canvasCtx.drawImage(results.segmentationMask, 0, 0,
+    //                    canvasElement.width, canvasElement.height);
+
+    // Agrega un fondo negro al lienzo
+    canvasCtx.fillStyle = 'black'; // Puedes cambiar 'black' por cualquier color de fondo que desees
+    canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
 
     // Only overwrite existing pixels.
     canvasCtx.globalCompositeOperation = 'source-in';
-    canvasCtx.fillStyle = '#00FF00';
+    canvasCtx.fillStyle = 'black';
     canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
 
     // Only overwrite missing pixels.
@@ -51,9 +59,9 @@ function onResults(results) {
     
     canvasCtx.globalCompositeOperation = 'source-over';
     drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-                  {color: '#191970', lineWidth: 4});
+                  {color: '#FF0000', lineWidth: 3});
     drawLandmarks(canvasCtx, results.poseLandmarks,
-                  {color: '#191970', lineWidth: 2});
+                  {color: '#FFFFFF', lineWidth: 2});
     canvasCtx.restore();
 
     //grid.updateLandmarks(results.poseWorldLandmarks);
@@ -80,12 +88,12 @@ pose.setOptions({
   static_image_mode: false, // The solution threats the input images as a video stream. Default: False.
   runningMode: "VIDEO",
   numPoses: 1,  // The maximum number of poses that can be detected by the Pose Landmarker.  
-  smoothLandmarks: false,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
+  smoothLandmarks: true,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
   enableSegmentation: true,  // In addition to the pose landmarks the solution also generates the segmentation mask. Default: False.
-  smoothSegmentation: false,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
-  minDetectionConfidence: 0.2,  // Minimum confidence value ([0.0, 1.0]) from the person-detection model for the detection to be considered successful. Default to 0.5.
-  minTrackingConfidence: 0.3,  // Minimum confidence value ([0.0, 1.0]) from the landmark-tracking model for the pose landmarks to be considered tracked successfully.  Setting it to a higher value can increase robustness of the solution, at the expense of a higher latency. Default to 0.5.
-  outputSegmentationMasks: true  // Whether Pose Landmarker outputs a segmentation mask for the detected pose.
+  smoothSegmentation: true,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
+  minDetectionConfidence: 0.5,  // Minimum confidence value ([0.0, 1.0]) from the person-detection model for the detection to be considered successful. Default to 0.5.
+  minTrackingConfidence: 0.2,  // Minimum confidence value ([0.0, 1.0]) from the landmark-tracking model for the pose landmarks to be considered tracked successfully.  Setting it to a higher value can increase robustness of the solution, at the expense of a higher latency. Default to 0.5.
+  outputSegmentationMasks: false  // Whether Pose Landmarker outputs a segmentation mask for the detected pose.
 });
 pose.onResults(onResults);
 
@@ -93,14 +101,14 @@ const camera = new Camera(videoElement, {
   onFrame: async () => {
     await pose.send({image: videoElement});
   },
-  width: 480,
-  height: 270,
+  width: 720,
+  height: 480,
   videoMirror: false
 });
 
 // Iniciar el cálculo del promedio después de unos segundos
 setTimeout(() => {
-  setInterval(calculateAverageFPS, 5000); // Calcular el promedio cada 5 segundos
-}, 5000);
+  setInterval(calculateAverageFPS, 2000); // Calcular el promedio cada 5 segundos
+}, 2000);
 
 camera.start();
