@@ -39,9 +39,10 @@ function onResults(results) {
                  {color: '#191970', lineWidth: 4});
   drawLandmarks(canvasCtx, results.poseLandmarks,
                 {color: '#191970', lineWidth: 2});
+  canvasCtx.scale(-1, 1); // Flip the image horizontally
   canvasCtx.restore();
 
-   grid.updateLandmarks(results.poseWorldLandmarks);
+  grid.updateLandmarks(results.poseWorldLandmarks);
 }
 
 const pose = new Pose({locateFile: (file) => {
