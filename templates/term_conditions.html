@@ -4,10 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/term.css') }}">
-    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
-    <title>Videostreaming</title>
+    <meta name="theme-color" content="#FFB81A">
 
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Vitaance Care landing page">
+    <meta name="author" content="Created by Mecantronic">
+
+    <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
+	<meta property="og:site_name" content="Vitaance Care" /> <!-- website name -->
+	<meta property="og:site" content="https://vitaance-pose.onrender.com" /> <!-- website link -->
+	<meta property="og:title" content="Vitaance Care"/> <!-- title shown in the actual shared post -->
+	<meta property="og:type" content="Landing Page" />
+
+    <!-- Website Title -->
+    <title>Vitaance Care</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/term.css') }}">
+    <!-- Favicon  -->
+    <link rel="icon" href="static/assets/favicon.ico">
+    <!-- Script  -->
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </head>
 
 <body class = "container">
@@ -18,7 +34,7 @@
         <div>
             <h1>Term and Conditions</h1>
             <p>The Vitaance Pose does not store images or sound files on our servers. We guarantee data privacy and security, as the processing is done temporarily and locally on your device.</p>
-            <form method="get" action="/activity">
+            <form method="get" action="/choose_activity">
                 <button class="term-conditions-button">I agree</button>
             </form>
         </div>
