@@ -4,7 +4,16 @@ const canvasCtx = canvasElement.getContext('2d');
 const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
 const grid = new LandmarkGrid(landmarkContainer);
 
+let previousTimestamp = 0;
+
 function onResults(results) {
+  // Calcular FPS
+  const timestamp = Date.now();
+  const deltaTime = timestamp - previousTimestamp;
+  const fps = 1000 / deltaTime;
+  console.log(`FPS: ${fps.toFixed(1)}`);
+  previousTimestamp = timestamp;
+
   if (!results.poseLandmarks) {
      grid.updateLandmarks([]);
     return;
@@ -39,7 +48,8 @@ const pose = new Pose({locateFile: (file) => {
   return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
 }});
 pose.setOptions({
-  modelComplexity: 2,
+  modelComplexity: 1,
+  runningMode: "VIDEO", 
   smoothLandmarks: true,
   enableSegmentation: true,
   smoothSegmentation: true,
