@@ -19,13 +19,13 @@ function onResults(results) {
     return;
   }
 
-  // Aplicar espejo horizontal al videoElement
+  // Aplicar mirror horizontal a videoElement
   videoElement.style.transform = 'scaleX(-1)';
 
   canvasCtx.save();
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
-  // Aplicar mirror (espejo) horizontal al canvasElement
+  // Aplicar mirror horizontal a canvasElement
   canvasCtx.scale(-1, 1);
   canvasCtx.translate(-canvasElement.width, 0);
 
@@ -41,8 +41,6 @@ function onResults(results) {
   canvasCtx.globalCompositeOperation = 'destination-atop';
   canvasCtx.drawImage(
       results.image, 0, 0, canvasElement.width, canvasElement.height);
-
-  //canvasCtx.scale(-1, 1); // Flip the image horizontally
   
   canvasCtx.globalCompositeOperation = 'source-over';
   drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
@@ -51,7 +49,7 @@ function onResults(results) {
                 {color: '#191970', lineWidth: 2});
   canvasCtx.restore();
 
-  grid.updateLandmarks(results.poseWorldLandmarks);
+  //grid.updateLandmarks(results.poseWorldLandmarks);
 }
 
 const pose = new Pose({locateFile: (file) => {
