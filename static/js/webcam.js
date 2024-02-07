@@ -34,7 +34,7 @@ function onResults(results) {
   canvasCtx.drawImage(
       results.image, 0, 0, canvasElement.width, canvasElement.height);
 
-  canvasCtx.scale(-1, 1); // Flip the image horizontally
+  //canvasCtx.scale(-1, 1); // Flip the image horizontally
   
   canvasCtx.globalCompositeOperation = 'source-over';
   drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
@@ -50,7 +50,7 @@ const pose = new Pose({locateFile: (file) => {
   return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
 }});
 pose.setOptions({
-  modelComplexity: 1,
+  modelComplexity: 0,
   runningMode: "VIDEO", 
   smoothLandmarks: true,
   enableSegmentation: true,
