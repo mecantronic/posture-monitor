@@ -15,7 +15,7 @@ function onResults(results) {
   fpsList.push(fps);
   previousTimestamp = timestamp;
 
-  console.log(`FPS: ${fps.toFixed(1)}`);
+  // console.log(`FPS: ${fps.toFixed(1)}`); FPS instantaneos
 
   if (!results.poseLandmarks) {
      grid.updateLandmarks([]);
