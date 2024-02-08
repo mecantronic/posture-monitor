@@ -1,7 +1,7 @@
-const videoElement = document.getElementsByClassName('input_video')[0];
-const canvasElement = document.getElementsByClassName('output_canvas')[0];
+const videoElement = document.querySelector('.input_video');
+const canvasElement = document.querySelector('.output_canvas');
 const canvasCtx = canvasElement.getContext('2d');
-const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
+const landmarkContainer = document.querySelector('.landmark-grid-container');
 const grid = new LandmarkGrid(landmarkContainer);
 
 // Ocultar el elemento <video> al inicio
@@ -11,62 +11,48 @@ let previousTimestamp = 0;
 const fpsList = [];
 let frameCounter = 0;  // Contador de fotogramas
 
+let mirrored = false;
+
 function onResults(results) {
   // Calcular FPS
-  const timestamp = Date.now();
+  const timestamp = performance.now();
   const deltaTime = timestamp - previousTimestamp;
   const fps = 1000 / deltaTime;
   fpsList.push(fps);
   previousTimestamp = timestamp;
 
   // Incrementar el contador de fotogramas
-  frameCounter++;
-
-  // console.log(`FPS: ${fps.toFixed(1)}`); FPS instantaneos
+  frameCounter += 1;
 
   if (!results.poseLandmarks) {
-     grid.updateLandmarks([]);
+    // ... Actualización de puntos de referencia ...
     return;
   }
-  if (frameCounter % 2 === 0) {  // Actualizar cada 5 fotogramas (ajustable según sea necesario)
-    // Aplicar mirror horizontal a videoElement
-    videoElement.style.transform = 'scaleX(-1)';  
 
-    canvasCtx.save();
+  if (frameCounter % 1 === 0) {
+    // Aplicar "mirror" solo una vez
+    if (!mirrored) {
+      mirrorElements();
+      mirrored = true;
+    }
+
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-
-    // Aplicar mirror horizontal a canvasElement
-    canvasCtx.scale(-1, 1);
-    canvasCtx.translate(-canvasElement.width, 0);
-
-    // Agrega la SegmentationMasks
-    //canvasCtx.drawImage(results.segmentationMask, 0, 0,
-    //                    canvasElement.width, canvasElement.height);
-
-    // Agrega un fondo negro al lienzo
-    canvasCtx.fillStyle = 'black'; // Puedes cambiar 'black' por cualquier color de fondo que desees
-    canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
-
-    // Only overwrite existing pixels.
-    canvasCtx.globalCompositeOperation = 'source-in';
     canvasCtx.fillStyle = 'black';
     canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
+    canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
 
-    // Only overwrite missing pixels.
-    canvasCtx.globalCompositeOperation = 'destination-atop';
-    canvasCtx.drawImage(
-        results.image, 0, 0, canvasElement.width, canvasElement.height);
-    
     canvasCtx.globalCompositeOperation = 'source-over';
-    drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-                  {color: '#FF0000', lineWidth: 3});
-    drawLandmarks(canvasCtx, results.poseLandmarks,
-                  {color: '#FFFFFF', lineWidth: 2});
-    canvasCtx.restore();
+    drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: '#FF0000', lineWidth: 3 });
+    drawLandmarks(canvasCtx, results.poseLandmarks, { color: '#FFFFFF', lineWidth: 2 });
 
-    //grid.updateLandmarks(results.poseWorldLandmarks);
-    frameCounter = 0;  // Reiniciar el contador de fotogramas
+    frameCounter = 0;
   }
+}
+
+function mirrorElements() {
+  videoElement.style.transform = 'scaleX(-1)';
+  canvasCtx.scale(-1, 1);
+  canvasCtx.translate(-canvasElement.width, 0);
 }
 
 function calculateAverageFPS() {
@@ -81,15 +67,15 @@ function calculateAverageFPS() {
 }
 
 const pose = new Pose({locateFile: (file) => {
-  return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+  return `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/${file}`;
 }});
 pose.setOptions({
-  modelComplexity: 0,  // Complexity of the pose landmark model: 0, 1 or 2. Default: 1.
+  modelComplexity: 1,  // Complexity of the pose landmark model: 0, 1 or 2. Default: 1.
   static_image_mode: false, // The solution threats the input images as a video stream. Default: False.
   runningMode: "VIDEO",
   numPoses: 1,  // The maximum number of poses that can be detected by the Pose Landmarker.  
   smoothLandmarks: true,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
-  enableSegmentation: true,  // In addition to the pose landmarks the solution also generates the segmentation mask. Default: False.
+  enableSegmentation: false,  // In addition to the pose landmarks the solution also generates the segmentation mask. Default: False.
   smoothSegmentation: true,  // The solution filters pose landmarks across different input images to reduce jitter. Default: True.
   minDetectionConfidence: 0.5,  // Minimum confidence value ([0.0, 1.0]) from the person-detection model for the detection to be considered successful. Default to 0.5.
   minTrackingConfidence: 0.2,  // Minimum confidence value ([0.0, 1.0]) from the landmark-tracking model for the pose landmarks to be considered tracked successfully.  Setting it to a higher value can increase robustness of the solution, at the expense of a higher latency. Default to 0.5.
@@ -106,9 +92,12 @@ const camera = new Camera(videoElement, {
   videoMirror: false
 });
 
-// Iniciar el cálculo del promedio después de unos segundos
-setTimeout(() => {
-  setInterval(calculateAverageFPS, 2000); // Calcular el promedio cada 5 segundos
-}, 2000);
+// Iniciar el cálculo del promedio usando requestAnimationFrame
+let animationId = null;
+function startAnimation() {
+  animationId = requestAnimationFrame(startAnimation);
+  calculateAverageFPS();
+}
+startAnimation();
 
 camera.start();
