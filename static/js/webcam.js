@@ -3,6 +3,7 @@ const canvasElement = document.querySelector('.output_canvas');
 const canvasCtx = canvasElement.getContext('2d');
 const landmarkContainer = document.querySelector('.landmark-grid-container');
 const grid = new LandmarkGrid(landmarkContainer);
+const fpsDisplayElement = document.getElementById('fpsDisplay');
 
 // Ocultar el elemento <video> al inicio
 videoElement.style.display = 'none';
@@ -57,13 +58,13 @@ function mirrorElements() {
 
 function calculateAverageFPS() {
   if (fpsList.length === 0) {
-    console.log("No FPS data available.");
+    fpsDisplayElement.textContent = "No FPS data available.";
     return;
   }
 
   const sum = fpsList.reduce((acc, fps) => acc + fps, 0);
   const averageFPS = sum / fpsList.length;
-  console.log(`Average FPS: ${averageFPS.toFixed(1)}`);
+  fpsDisplayElement.textContent = `Average FPS: ${averageFPS.toFixed(1)}`;
 }
 
 const pose = new Pose({locateFile: (file) => {
